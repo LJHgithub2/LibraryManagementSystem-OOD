@@ -1,0 +1,38 @@
+
+@startuml
+|#AntiqueWhite|시스템 |
+|사용자|
+start
+: 대출 요청;
+fork
+    :회원 정보 가져오기;
+    |시스템 |
+    -[#black,dotted]->
+    :회원 정보;<<task>>
+    -[#black,dotted]->
+    if (대출 가능?) then (No)
+        :대출 불가;
+        end
+    else (yes)
+    endif
+|사용자|
+fork again
+    :도서 식별 번호 입력;
+    |#AntiqueWhite|시스템|
+    :도서 식별 번호 분석;
+    -[#black,dotted]->
+    :해당 도서 정보;<<task>>
+    -[#black,dotted]->
+    if (대출 가능?) then (No)
+        :대출 불가;
+        end
+    else (yes)
+    endif
+|사용자|
+end fork
+: 해당 도서 대출 정보 갱신;
+: 회원 대출 정보 갱신;
+: 대출 완료;
+stop
+
+@enduml

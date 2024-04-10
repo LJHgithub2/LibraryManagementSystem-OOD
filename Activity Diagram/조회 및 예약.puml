@@ -1,0 +1,46 @@
+@startuml
+start
+
+switch ()
+case (  [나의 도서 관리])
+    :회원 정보 가져오기;
+    -[#black,dotted]->
+    :회원 정보;<<task>>
+    -[#black,dotted]->
+    :나의 대출 기록 목록 출력;
+    if (도서 정보 상세보기) then (no)
+        :종료;
+        end
+    else (yes)
+        if(대출중인 도서인가?) then (yes)
+            if (기간 연장) then (yes)
+                : 대출 기간 연장;
+            else (no)
+            endif
+        else (no)
+        endif
+        
+        if(예약한 도서인가?) then (yes)
+            if (예약 취소) then (yes)
+                : 예약 취소;
+            else (no)
+            endif
+        else (no)
+        endif
+    endif 
+case (  [도서 찾기])
+    :도서 검색 조건 설정;
+    :검색된 도서 목록 출력;
+    if (도서 정보 상세보기) then (no)
+        :종료;
+        end
+    else (yes)
+        if(예약 가능 여부) then (가능)
+            : 대출 예약;
+        else (불가능)
+        endif
+    endif 
+endswitch
+stop
+
+@enduml

@@ -1,0 +1,27 @@
+
+@startuml
+|사용자|
+start
+:반납 요청;
+:도서 식별 번호 입력;
+|#AntiqueWhite|시스템|
+:도서 식별 번호 분석;
+-[#black,dotted]->
+:해당 도서 정보;<<task>>
+-[#black,dotted]->
+if (연체 여부) then (yes)
+    |사용자|
+    :사유서 작성;
+    |시스템|
+    :연체료 산출;
+    |사용자|
+    :연체료 납부;
+|시스템|
+else (no)
+endif
+: 해당 도서 대출 정보 갱신;
+: 회원 대출 정보 갱신;
+: 반납 처리 완료;
+stop
+
+@enduml

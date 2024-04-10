@@ -1,0 +1,34 @@
+
+@startuml
+
+start
+
+if (로그인 시도) then (ok)
+else (fail)
+    :회원 가입;
+    repeat
+        :개인 정보 입력;
+    repeat while(개인정보 유효성 검사) is(실패)
+        :회원정보 저장;
+endif
+:회원 인증 완료;
+-[#black,dotted]->
+:회원 정보; <<task>>
+-[#black,dotted]->
+switch ()
+case (1)
+    partition 예약 {
+        :조회 및 예약 하기;
+    }
+case (2)
+    partition 대출 {
+        :도서 대출 하기;
+    }
+case (3)
+    partition 반납 {
+        :도서 반납 하기;
+    }
+endswitch
+stop
+
+@enduml
