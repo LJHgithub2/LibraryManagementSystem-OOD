@@ -1,0 +1,25 @@
+@startuml
+autoactivate on
+actor 사용자
+participant "도서관 시스템" as system
+database "사용자 목록" as users
+database "권한 정보" as permissions
+database "도서 목록" as books
+database "도서" as book
+database "도서 대출" as records
+
+사용자 -> system: 도서 대출 요청
+ref over system, users, permissions : 유저 권한 조회
+ref over system, users, records : 도서 정보 조회
+
+alt 대출 가능 시
+system -> books: 도서 대출(도서 id)
+books -> records : 도서 대출(도서 id)
+records --> books : 대출 기록 업데이트
+books --> system: 대출 완료
+system --> 사용자: 대출 완료 메시지 전송
+|||
+else 대출 불가능 시
+system --> 사용자: 대출 불가 메시지 전송
+end
+@enduml

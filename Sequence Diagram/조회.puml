@@ -1,0 +1,26 @@
+@startuml
+autoactivate on
+actor 사용자
+participant "도서관 시스템" as system
+database "도서 목록" as books
+database "도서" as book
+database "도서 대출" as records
+database "도서 예약" as records2
+
+사용자 -> system: 도서 조회 요청
+system -> books: 도서 검색(조건)
+books -> book: 도서 검색(조건)
+alt 도서가 없음
+    book -> books : Return NULL
+    books --> system : Return NULL
+    system --> 사용자 : Return NULL
+else 도서가 있음
+    book -> books : Return 도서
+    books -> records : 도서 대출 정보 조회
+    records --> books : 도서 대출 정보 반환
+    books -> records2 : 도서 예약 정보 조회
+    records2 --> books : 도서 예약 정보 반환
+    books --> system: 도서 정보 반환
+    system --> 사용자: 도서 정보 전송
+end
+@enduml

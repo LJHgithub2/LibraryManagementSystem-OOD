@@ -1,0 +1,15 @@
+@startuml
+autoactivate on
+actor 사용자
+participant "도서관 시스템" as system
+database "도서 목록" as books
+database "도서 대출" as records
+
+사용자 -> system: 도서 반납 요청
+
+system -> books: 도서 반납(도서 id)
+books -> records : 도서 반납(도서 id)
+records --> books : 대출 기록 업데이트
+books --> system: 반납 완료
+system --> 사용자: 반납 완료 메시지 전송
+@enduml

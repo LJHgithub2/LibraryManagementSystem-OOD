@@ -1,0 +1,22 @@
+@startuml
+autoactivate on
+actor 사용자
+participant "도서관 시스템" as system
+database "사용자 목록" as users
+database "권한 정보" as permissions
+
+사용자 -> system: 회원 조회 요청
+system -> users: 회원 정보 조회
+alt 회원이 아닐경우
+    users --> system : 회원 조회 실패
+    system --> 사용자 : Return 에러
+else 회원일 경우
+    users --> system: 회원 정보 반환
+    system --> 사용자: 회원 정보 전송
+    사용자 -> system: 권한 조회 요청
+    system -> permissions: 권한 정보 조회
+    permissions --> system: 권한 정보 반환
+    system --> 사용자: 권한 정보 전송
+end
+
+@enduml

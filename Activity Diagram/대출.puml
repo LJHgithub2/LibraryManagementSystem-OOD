@@ -4,7 +4,7 @@
 |사용자|
 start
 : 대출 요청;
-fork
+fork 
     :회원 정보 가져오기;
     |시스템 |
     -[#black,dotted]->
